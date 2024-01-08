@@ -2,7 +2,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <p>Home</p>
+    <p className=' text-5xl mt-5 m-5 '>Welcome To Placement Cell of  VGEC</p>
   )
 }
 
