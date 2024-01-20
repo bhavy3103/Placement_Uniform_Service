@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      required: true,
+      default: "Student",
+    },
     email: {
       type: String,
       required: true,
@@ -41,14 +46,12 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      required: true
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model('users', userSchema);
+const User = mongoose.model("users", userSchema);
 
 export default User;
-
-
