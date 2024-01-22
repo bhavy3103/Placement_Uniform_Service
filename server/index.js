@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import db from "./config/dbConfig.js";
 dotenv.config();
@@ -13,7 +12,6 @@ app.use(express.json());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
-
 // for checking authMiddleware no other purpose
 app.use("/secure-route", authMiddleware);
 app.get("/secure-route", (req, res) => {
