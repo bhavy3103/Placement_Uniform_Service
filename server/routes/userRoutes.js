@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsers } from "../controllers/userController.js";
+import { getUsers, getCurrentUser } from "../controllers/userController.js";
 import {
   authMiddleware,
   authAdminMiddleware,
@@ -8,5 +8,7 @@ import {
 const router = express.Router();
 
 router.get("/users", authAdminMiddleware, getUsers);
+router.get("/", authMiddleware, getCurrentUser)
+
 
 export default router;
