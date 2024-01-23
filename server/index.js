@@ -5,10 +5,12 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import { authMiddleware } from "./middlewares/authMiddleware.js";
+import cors from "cors";
 
 db();
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
