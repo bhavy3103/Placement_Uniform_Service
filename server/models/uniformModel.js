@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
 const uniformSchema = new mongoose.Schema({
-  userRef: {
-    type: String,
-    required: true,
-  },
   firstInstallment: {
     type: Boolean,
     required: true,
