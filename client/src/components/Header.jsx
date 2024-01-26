@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const { currentUser } = useSelector(state => state.user);
+  // console.log(currentUser);
   return (
     <header className='bg-slate-200 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-2 h-14' >
@@ -30,7 +31,7 @@ const Header = () => {
               currentUser ? (
                 // give me rounded circle which contain first character of user name 
                 <button className="border border-blue-500 hover:border-blue-700  bg-gray-800 text-white p-0 rounded-full h-7 w-7 hover:underline text-slate-700">
-                  {currentUser.data.fname[0] + currentUser.data.lname[0]}
+                  {currentUser.data.message.fname[0] + currentUser.data.message.lname[0]}
                 </button>
               ) :
                 (<li className='hidden  sm:inline hover:underline text-slate-700'>Sign In</li>
