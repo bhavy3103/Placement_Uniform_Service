@@ -3,27 +3,27 @@ import mongoose from 'mongoose';
 const uniformSchema = new mongoose.Schema({
   firstInstallment: {
     type: Boolean,
-    required: true,
+    default: false
   },
   secondInstallment: {
     type: Boolean,
-    required: true,
+    default: false
   },
   isMeasureMentDone: {
     type: Boolean,
-    required: true,
+    default: false
   },
   isArrived: {
     type: Boolean,
-    required: true,
+    default: false
   },
   isDistributed: {
     type: Boolean,
-    required: true,
+    default: false
   },
   isIssue: {
     type: Array,
-    required: true,
+    required: true
   },
 }, { timestamps: true });
 

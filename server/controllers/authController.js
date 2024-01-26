@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
       isMeasureMentDone: false,
       isArrived: false,
       isDistributed: false,
-      isIssue: [],
+      isIssue: []
     });
 
     // Save the new Uniform document
