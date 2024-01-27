@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 import { useState } from 'react';
 import AxiosUrl from '../../api/AxiosUrl';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +18,6 @@ const SignIn = () => {
 
   const { loading, error } = useSelector((state) => state.user);
 
-
   const testApi = async (e) => {
     e.preventDefault();
     try {
@@ -32,11 +30,10 @@ const SignIn = () => {
         dispatch(signInFailure(res.message));
         return;
       }
-      dispatch(signInSuccess(res));
+      dispatch(signInSuccess(res.data));
       navigate('/');
-
     } catch (error) {
-      const Credential = "Wrong Credential";
+      const Credential = 'Wrong Credential';
       dispatch(signInFailure(Credential));
       // console.log(error.message);
     }
@@ -69,9 +66,7 @@ const SignIn = () => {
             setPassword(e.target.value);
           }}
         />
-        <Button onClick={testApi}>
-          {loading ? 'Loading...' : 'Sign In'}
-        </Button>
+        <Button onClick={testApi}>{loading ? 'Loading...' : 'Sign In'}</Button>
       </form>
       <div className='flex flex-row justify-between'>
         {/* <div className='flex gap-2 mt-5'>
