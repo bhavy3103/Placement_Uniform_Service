@@ -11,7 +11,7 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full ">
         <div className="relative">
           <button
             className="w-[140px] h-[140px] object-cover border-[2px]  border-blue-500 hover:border-blue-700  bg-gray-600 p-5 rounded-full  text-white text-6xl text-center cursor-default"
@@ -21,7 +21,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div className="grid gap-6 mb-6 md:grid-cols-3 mt-2">
+      <div className="grid gap-6 mb-6 md:grid-cols-3 mt-2 mr-4">
         <div>
           <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
           <input
