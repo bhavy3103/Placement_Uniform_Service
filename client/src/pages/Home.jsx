@@ -1,9 +1,12 @@
-import React from 'react'
+
+import Layout from '@/components/Layout';
 
 const Home = () => {
   return (
-    <p className=' text-5xl mt-5 m-5 '>Welcome To Placement Cell of  VGEC</p>
-  )
-}
+    <Layout>
+      <p className='text-5xl mt-5'>Welcome To Placement Cell of VGEC</p>
+    </Layout>
+  );
+};
 
-export default Home
+export default Home;
