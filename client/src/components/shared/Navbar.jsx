@@ -18,9 +18,9 @@ export const Navbar = () => {
       dispatch(signOutUserStart());
 
       const response = await axios.get('/api/auth/signout');
-      console.log(response);
+      console.log(response.statusText);
 
-      if (!response.data.success) {
+      if (!response.statusText) {
         dispatch(signOutUserFailure(response.status));
         return;
       }

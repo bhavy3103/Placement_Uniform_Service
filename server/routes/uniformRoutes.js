@@ -3,10 +3,13 @@ import {
   authMiddleware,
   authAdminMiddleware,
 } from "../middlewares/authMiddleware.js";
-import { getUserWithUniform } from '../controllers/uniformController.js';
+import { updateStudentUniform } from '../controllers/uniformController.js';
 
 const router = express.Router();
 
-router.get('/details/:id', authAdminMiddleware, getUserWithUniform);
+// router.get('/details/:id', authAdminMiddleware, getUserWithUniform);
+
+router.post('/updateUniform', authAdminMiddleware, updateStudentUniform);
+
 
 export default router;

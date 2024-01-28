@@ -4,6 +4,7 @@ import db from "./config/dbConfig.js";
 dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import uniformRoutes from "./routes/uniformRoutes.js";
 import { authMiddleware } from "./middlewares/authMiddleware.js";
 import cors from "cors";
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/uniform", uniformRoutes);
 // for checking authMiddleware no other purpose
 app.use("/secure-route", authMiddleware);
 app.get("/secure-route", (req, res) => {

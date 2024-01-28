@@ -22,7 +22,7 @@ const uniformSchema = new mongoose.Schema({
     default: false
   },
   isIssue: {
-    type: Array,
+    type: String,
     required: true
   },
 }, { timestamps: true });
