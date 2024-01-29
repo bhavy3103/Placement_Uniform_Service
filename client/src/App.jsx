@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
 import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
+import UniformDetails from './pages/UniformDetails';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -21,6 +22,7 @@ const App = () => {
         {!isAuthenticated && <Route path='/sign-in' element={<SignIn />} />}
         {!isAuthenticated && <Route path='/sign-up' element={<SignUp />} />}
         {isAuthenticated && <Route path='/profile' element={<Profile />} />}
+        {isAuthenticated && <Route path='/uniformdetails' element={<UniformDetails/>}/>}
       </Routes>
     </BrowserRouter>
   );

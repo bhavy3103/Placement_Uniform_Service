@@ -1,5 +1,4 @@
-import { User } from '../models/userModel.js';
-
+import { User } from "../models/userModel.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -36,7 +35,7 @@ export const getCurrentUser = async (req, res) => {
     res.send({
       success: true,
       message: "User fetched Successfully",
-      user: rest
+      user: rest,
     });
   } catch (error) {
     res.send({
@@ -44,4 +43,4 @@ export const getCurrentUser = async (req, res) => {
       message: error.message,
     });
   }
-}
+};

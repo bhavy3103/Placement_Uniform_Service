@@ -21,9 +21,8 @@ export const authAdminMiddleware = async (req, res, next) => {
     const token = req.header("authorization").split(" ")[1];
     const decryptedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.body.userId = decryptedToken.userId;
-    const user = await User.findById(req.body.userId)
-    if (user.role !== ROLES.ADMIN)
-      throw new Error("You are not authorized...");
+    const user = await User.findById(req.body.userId);
+    if (user.role !== ROLES.ADMIN) throw new Error("You are not authorized...");
     next();
   } catch (error) {
     res.send({

@@ -34,6 +34,7 @@ const SignIn = () => {
       }
       dispatch(signInSuccess(res.data.message));
       navigate('/');
+      window.localStorage.setItem("token",res.data.token);
     } catch (error) {
       const Credential = 'Wrong Credential';
       dispatch(signInFailure(Credential));

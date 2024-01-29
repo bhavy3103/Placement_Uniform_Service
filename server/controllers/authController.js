@@ -2,7 +2,7 @@ import { Error } from "mongoose";
 import { User } from "../models/userModel.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Uniform } from '../models/userModel.js';
+import { Uniform } from "../models/userModel.js";
 
 export const signup = async (req, res) => {
   try {
@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
       isMeasureMentDone: false,
       isArrived: false,
       isDistributed: false,
-      isIssue: []
+      isIssue: [],
     });
 
     // Save the new Uniform document
@@ -68,9 +68,10 @@ export const signin = async (req, res) => {
       }
     );
     const { password: pass, ...rest } = isUserValid._doc;
-    res.cookie('access_token', token, { httpOnly: true });
+    res.cookie("access_token", token, { httpOnly: true });
     res.send({
       success: true,
+      token: token,
       message: rest,
     });
   } catch (error) {
@@ -83,8 +84,8 @@ export const signin = async (req, res) => {
 
 export const signout = async (req, res, next) => {
   try {
-    res.clearCookie('access_token');
-    res.status(200).json('User has been logged out');
+    res.clearCookie("access_token");
+    res.status(200).json("User has been logged out");
   } catch (error) {
     next(error);
   }

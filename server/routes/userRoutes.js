@@ -7,8 +7,7 @@ import {
 
 const router = express.Router();
 
-router.get("/users", authAdminMiddleware, getUsers);
-router.get("/", authMiddleware, getCurrentUser)
-
+router.get("/users",authAdminMiddleware, getUsers);
+router.get("/", authMiddleware, getCurrentUser);
 
 export default router;
