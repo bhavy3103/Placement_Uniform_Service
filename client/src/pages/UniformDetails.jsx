@@ -1,14 +1,13 @@
-import Layout from "@/components/shared/Layout";
-import Table from "@/components/ui/Table";
+import Layout from '@/components/shared/Layout';
+import Table from '@/components/shared/Table';
 
 const UniformDetails = () => {
   return (
     <Layout>
-        <div className="container mx-auto">
-          {/* <Table /> */}
-    </div>
+      <div className='container mx-auto'>
+        <Table />
+      </div>
     </Layout>
-    
   );
 };
 
