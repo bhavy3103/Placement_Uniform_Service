@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Layout } from '../components/shared/Layout';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -239,9 +241,7 @@ const Profile = () => {
           <input
             type='text'
             placeholder='isArrived'
-            defaultValue={
-              currentUser.uniform.isArrived ? 'Done' : 'Pending'
-            }
+            defaultValue={currentUser.uniform.isArrived ? 'Done' : 'Pending'}
             id='isArrived'
             className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
               currentUser.uniform.isArrived === true
@@ -272,6 +272,21 @@ const Profile = () => {
             }`}
             // onChange={handleChange}
           />
+        </div>
+        <div>
+          <Label htmlFor='query'>Is Query?</Label>
+          <RadioGroup>
+            <div className='flex justify-center items-center gap-2 mt-2'>
+              <div className='flex items-center space-x-2'>
+                <RadioGroupItem value='no' id='r1' />
+                <Label htmlFor='r1'>No</Label>
+              </div>
+              <div className='flex items-center space-x-2'>
+                <RadioGroupItem value='yes' id='r2' />
+                <Label htmlFor='r2'>Yes</Label>
+              </div>
+            </div>
+          </RadioGroup>
         </div>
       </div>
     </Layout>

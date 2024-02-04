@@ -22,7 +22,9 @@ const App = () => {
         {!isAuthenticated && <Route path='/sign-in' element={<SignIn />} />}
         {!isAuthenticated && <Route path='/sign-up' element={<SignUp />} />}
         {isAuthenticated && <Route path='/profile' element={<Profile />} />}
-        {isAuthenticated && <Route path='/uniformdetails' element={<UniformDetails/>}/>}
+        {isAuthenticated && (
+          <Route path='/uniformdetails' element={<UniformDetails />} />
+        )}
       </Routes>
     </BrowserRouter>
   );
