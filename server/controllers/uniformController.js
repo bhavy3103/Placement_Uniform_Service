@@ -7,7 +7,7 @@ export const updateStudentUniform = async (req, res) => {
     const updateOperations = uniformUpdates.map(update => ({
       updateOne: {
         filter: { enrollment: update.enrollment },
-        update: { $set: { 'uniform': update.updatedFields } },
+        update: { $set: { 'uniform': update.uniform } },
       },
     }));
 

@@ -6,28 +6,66 @@ const Table = (props) => {
   const [permission, setpermission] = useState({read: true,write:false});
   const argument = props;
 
+  const fetchData = async () => {
+    try {
+      const res = await AxiosUrl.get('/api/user/users');
+      setData(res.data.data);
+      // console.log(res.data.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const permissionHandler= ()=>{
     if(!argument.flag)
       setpermission({read:false,write:true})
     else
       setpermission({read: true,write:false})
   }
-  // console.log(permission);
-  const fetchData = async () => {
-    try {
-      const res = await AxiosUrl.get('/api/user/users');
-      setData(res.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  const handleSelectChange = (e)=>{
-    console.log(e.target.value);
-  }
+
   useEffect(() => {
     fetchData();
     permissionHandler(); 
   }, [argument.flag]);
+
+  // const checkboxHandler = (enrollment, key) => {
+  //   console.log(key, enrollment);
+  //   setData((prevData) => {
+  //     const newData =  prevData.map((item) => {
+  //       console.log(item.enrollment);
+  //       return item.enrollment === enrollment
+  //         ? {
+  //           ...item,
+  //           uniform: {
+  //             ...item.uniform,
+  //             [key]: !item.uniform[key],
+  //           },
+  //         }
+  //         : item;
+  //     });
+  //     argument.updatefunc(newData);
+  //   });
+  // }
+
+  const checkboxHandler = (enrollment, key) => {
+    setData((prevData) => {
+      const newData = prevData.map((item) => {
+        return item.enrollment === enrollment
+          ? {
+              ...item,
+              uniform: {
+                ...item.uniform,
+                [key]: !item.uniform[key], 
+              },
+            }
+          : item;
+      });
+  
+      argument.updatefunc(newData);
+  
+      return newData;
+    });
+  };
   
   return (
     <>
@@ -50,13 +88,13 @@ const Table = (props) => {
               2<sup>nd</sup>Installment
             </th>
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+              Measurnment
+            </th>
+            <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
               Arrived
             </th>
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
               Distributed
-            </th>
-            <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-              Measurnment
             </th>
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
               Query
@@ -64,48 +102,39 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((val, index) => {
+          {data !== undefined && data.map((val, index) => {
             return (
-              <tr key={index}>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {index + 1}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {val.enrollment}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {val.fname}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write?<input type="checkbox" name="first_installment" id="first_installment"/>:<input type="checkbox" name="first_installment" id="first_installment" checked={val.uniform.firstInstallment} readOnly/>}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write?<input type="checkbox" name="second_installment" id="second_installment" />:<input type="checkbox" name="second_installment" id="second_installment" checked={val.uniform.secondInstallment} readOnly/>}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write ?<input type="checkbox" name="arrived" id="arrived" />:<input type="checkbox" name="arrived" id="arrived" checked={val.uniform.isArrived} readOnly/>}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write?<input type="checkbox" name="distributed" id="distributed" />:<input type="checkbox" name="distributed" id="distributed" checked={val.uniform.isDistributed} readOnly/>}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write?<input type="checkbox" name="measurment" id="measurment" />:<input type="checkbox" name="measurment" id="measurment" checked={val.uniform.isMeasureMentDone} readOnly/>}
-                </td>
-                <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
-                  {!permission.write?<select id="dropdown"  onChange={handleSelectChange}>
-        <option value="">Select an option</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-      </select>:val.uniform.isIssue}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </>
-  );
+                <tr key={index}>
+                  <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                    {index + 1}
+                  </td>
+                  <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                    {val.enrollment}
+                  </td>
+                  <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                    {val.fname}
+                  </td>
+                    {val.uniform !== undefined && Object.keys(val.uniform).filter(key =>key !== 'id' && key !== 'createdAt' && key !=='updatedAt' && key!=='_id' && key!=='__v' && key!=='isIssue').map((key)=>{
+                      // console.log(key);
+                      // console.log(val.uniform[key]);
+                      return(
+                        <>
+                        <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                        {!permission.write?<input type="checkbox" checked={val.uniform[key]} onChange={(e)=>{checkboxHandler(val.enrollment,key,e)}}/>:<input type="checkbox" checked={val.uniform[key]} readOnly/>}
+                      </td>
+                      </>
+                      )
+                    })}
+                  <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                    {val.uniform.isIssue}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </>
+    );
 };
 
 export default Table;

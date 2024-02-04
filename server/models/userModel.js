@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const uniformSchema = new mongoose.Schema(
   {
@@ -25,6 +25,7 @@ const uniformSchema = new mongoose.Schema(
     isIssue: {
       type: String,
       required: true,
+      default: 'No issue found',
     },
   },
   { timestamps: true }
@@ -59,7 +60,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      default: "Student",
+      default: 'Student',
     },
     email: {
       type: String,
@@ -84,13 +85,13 @@ const userSchema = new mongoose.Schema(
     },
     uniform: {
       type: uniformSchema, // Embedding the uniformSchema as a sub-document
-      default: ({}) // Set default value to an empty object
+      default: {}, // Set default value to an empty object
     },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model('users', userSchema);
 const Uniform = mongoose.model('uniform', uniformSchema);
 
 export { User, Uniform };
