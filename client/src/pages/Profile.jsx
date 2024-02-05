@@ -30,7 +30,8 @@ const Profile = () => {
             defaultValue={currentUser.fname}
             id='fname'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -46,7 +47,8 @@ const Profile = () => {
             defaultValue={currentUser.mname}
             id='mname'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -62,7 +64,8 @@ const Profile = () => {
             defaultValue={currentUser.lname}
             id='lname'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -78,7 +81,8 @@ const Profile = () => {
             defaultValue={currentUser.enrollment}
             id='enrollment'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -94,7 +98,8 @@ const Profile = () => {
             defaultValue={currentUser.gender}
             id='role'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -110,7 +115,8 @@ const Profile = () => {
             defaultValue={currentUser.department}
             id='department'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -126,7 +132,8 @@ const Profile = () => {
             defaultValue={currentUser.email}
             id='department'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -142,7 +149,8 @@ const Profile = () => {
             defaultValue={currentUser.phone1}
             id='phone1'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -158,7 +166,8 @@ const Profile = () => {
             defaultValue={currentUser.phone2}
             id='phone2'
             className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border p-2.5 block w-full dark:bg-gray-700 dark:border-gray-600'
-            // onChange={handleChange}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
       </div>
@@ -178,12 +187,12 @@ const Profile = () => {
               currentUser.uniform.firstInstallment ? 'Done' : 'Pending'
             }
             id='firstInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.firstInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
-            // onChange={handleChange}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.firstInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -200,12 +209,12 @@ const Profile = () => {
               currentUser.uniform.secondInstallment ? 'Done' : 'Pending'
             }
             id='secondInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.secondInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
-            // onChange={handleChange}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.secondInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -222,12 +231,12 @@ const Profile = () => {
               currentUser.uniform.isMeasureMentDone ? 'Done' : 'Pending'
             }
             id='isMeasureMentDone'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isMeasureMentDone === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
-            // onChange={handleChange}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isMeasureMentDone === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
 
@@ -243,12 +252,12 @@ const Profile = () => {
             placeholder='isArrived'
             defaultValue={currentUser.uniform.isArrived ? 'Done' : 'Pending'}
             id='isArrived'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isArrived === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
-            // onChange={handleChange}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isArrived === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -265,12 +274,12 @@ const Profile = () => {
               currentUser.uniform.isDistributed ? 'Done' : 'Pending'
             }
             id='phone2'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isDistributed === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
-            // onChange={handleChange}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isDistributed === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
+            readOnly
+          // onChange={handleChange}
           />
         </div>
         <div>

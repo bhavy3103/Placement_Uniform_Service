@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
     "nodemon": "^3.0.2",
+    "path": "^0.12.7",
     "redux-persist": "^6.0.0"
   }
 }
