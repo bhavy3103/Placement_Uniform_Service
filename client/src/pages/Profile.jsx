@@ -1,11 +1,51 @@
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Layout } from '../components/shared/Layout';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from '../../api/AxiosUrl';
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const [queryType, setQueryType] = useState();
+
   console.log(currentUser);
+
+  const handleQueryTypeChange = (event) => {
+    setQueryType(event.target.value);
+  };
+
+  const submitQuery = async () => {
+    try {
+      // Define the data to be sent in the request body
+      const data = {
+        isIssue: queryType || 'No issue found',
+      };
+
+      // Make the POST request
+      const response = await axios.patch('/api/uniform/updateIssue', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log(response);
+
+      if (response.status === 200) {
+        // Handle success
+        toast.success('Query added successfully');
+      } else {
+        // Handle failure
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the request
+      toast.error('Error updating uniform issue: ' + error.message);
+
+      console.error('Error updating uniform issue:', error.message);
+    }
+  };
+
 
   return (
     <Layout>
@@ -279,26 +319,37 @@ const Profile = () => {
               : 'text-gray-900'
               }`}
             readOnly
-          // onChange={handleChange}
           />
         </div>
-        <div>
-          <Label htmlFor='query'>Is Query?</Label>
-          <RadioGroup>
-            <div className='flex justify-center items-center gap-2 mt-2'>
-              <div className='flex items-center space-x-2'>
-                <RadioGroupItem value='no' id='r1' />
-                <Label htmlFor='r1'>No</Label>
-              </div>
-              <div className='flex items-center space-x-2'>
-                <RadioGroupItem value='yes' id='r2' />
-                <Label htmlFor='r2'>Yes</Label>
+        <div className='flex items-center'>
+          {currentUser.uniform.isDistributed && (
+            <div className='flex flex-col justify-center'>
+              <label htmlFor='query' className='block mb-2 text-sm font-medium text-gray-900'>
+                Is Any Query regarding uniform?
+              </label>
+              <select id='query' className='block w-full py-2 px-3 border  border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500' onChange={handleQueryTypeChange}>
+                <option value='unfit'>Size Unfit</option>
+                <option value='missing'>Missing</option>
+                <option value='torned'>Torned</option>
+                <option value='other'>Other</option>
+              </select>
+              {/* Check if the selected query type is "Other" */}
+              <div className="mt-3 flex flex-row justify-center items-center gap-6">
+                {queryType === 'other' && (
+                  <div>
+                    <label htmlFor="queryDescription" className="block mb-2 text-sm font-medium text-gray-900">Please specify:</label>
+                    <textarea id="queryDescription" className="block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="3" placeholder="Describe your issue..."></textarea>
+                  </div>
+                )}
+                {/* Submit Button */}
+                <button onClick={submitQuery} className="mt-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Submit</button>
               </div>
             </div>
-          </RadioGroup>
+          )}
         </div>
+
       </div>
-    </Layout>
+    </Layout >
   );
 };
 
