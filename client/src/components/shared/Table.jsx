@@ -28,25 +28,6 @@ const Table = (props) => {
     permissionHandler(); 
   }, [argument.flag]);
 
-  // const checkboxHandler = (enrollment, key) => {
-  //   console.log(key, enrollment);
-  //   setData((prevData) => {
-  //     const newData =  prevData.map((item) => {
-  //       console.log(item.enrollment);
-  //       return item.enrollment === enrollment
-  //         ? {
-  //           ...item,
-  //           uniform: {
-  //             ...item.uniform,
-  //             [key]: !item.uniform[key],
-  //           },
-  //         }
-  //         : item;
-  //     });
-  //     argument.updatefunc(newData);
-  //   });
-  // }
-
   const checkboxHandler = (enrollment, key) => {
     setData((prevData) => {
       const newData = prevData.map((item) => {
@@ -62,7 +43,6 @@ const Table = (props) => {
       });
   
       argument.updatefunc(newData);
-  
       return newData;
     });
   };
@@ -115,8 +95,6 @@ const Table = (props) => {
                     {val.fname}
                   </td>
                     {val.uniform !== undefined && Object.keys(val.uniform).filter(key =>key !== 'id' && key !== 'createdAt' && key !=='updatedAt' && key!=='_id' && key!=='__v' && key!=='isIssue').map((key)=>{
-                      // console.log(key);
-                      // console.log(val.uniform[key]);
                       return(
                         <>
                         <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>

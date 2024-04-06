@@ -4,10 +4,10 @@ export const updateStudentUniform = async (req, res) => {
   try {
     const uniformUpdates = req.body;
 
-    const updateOperations = uniformUpdates.map(update => ({
+    const updateOperations = uniformUpdates.map((update) => ({
       updateOne: {
         filter: { enrollment: update.enrollment },
-        update: { $set: { 'uniform': update.uniform } },
+        update: { $set: { uniform: update.uniform } },
       },
     }));
 
@@ -24,21 +24,26 @@ export const updateUniformIssue = async (req, res) => {
   try {
     const userId = req.body.userId;
     const { isIssue } = req.body;
+    console.log(isIssue);
     const user = await User.findById(userId);
+
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
     }
-    if (isIssue === "No issue found") {
-      user.status = "completed";
+    if (isIssue === 'No issue found') {
+      user.status = 'completed';
       user.uniform.isIssue = isIssue;
-    }
-    else {
+    } else {
       user.uniform.isIssue = isIssue;
-      user.status = "pending";
+      user.status = 'pending';
     }
     await user.save();
 
-    return res.status(200).json({ success: true, message: "isIssue field updated successfully" });
+    return res
+      .status(200)
+      .json({ success: true, message: 'isIssue field updated successfully' });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }

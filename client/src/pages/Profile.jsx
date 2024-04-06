@@ -22,6 +22,8 @@ const Profile = () => {
         isIssue: queryType || 'No issue found',
       };
 
+      console.log(data);
+
       // Make the POST request
       const response = await axios.patch('/api/uniform/updateIssue', data, {
         headers: {
