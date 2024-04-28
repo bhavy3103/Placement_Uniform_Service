@@ -6,7 +6,7 @@ import { Uniform } from "../models/userModel.js";
 
 export const signup = async (req, res) => {
   try {
-    const { enrollment, password } = req.body;
+    let { enrollment, password, chats, ...userData } = req.body;
 
     // Check if the user already exists
     const existingUser = await User.findOne({ enrollment });
@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
       isMeasureMentDone: false,
       isArrived: false,
       isDistributed: false,
-      isIssue: [],
+      isIssue: "No Issue found",
     });
 
     // Save the new Uniform document
@@ -37,6 +37,11 @@ export const signup = async (req, res) => {
       uniform: savedUniform,
     });
 
+    // Add timestamp to each chat message if chats are provided
+    if (chats && Array.isArray(chats)) {
+      newUser.chats = chats.map(chat => ({ ...chat, timestamp: new Date() }));
+    }
+
     // Save the new User document
     await newUser.save();
 
@@ -45,6 +50,8 @@ export const signup = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
+
+
 
 export const signin = async (req, res) => {
   try {
