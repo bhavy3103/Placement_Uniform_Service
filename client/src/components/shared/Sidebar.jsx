@@ -21,6 +21,11 @@ export const Sidebar = () => {
             About
           </li>
         </Link>
+        <Link to='/chats'>
+          <li className='text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg'>
+            Chats
+          </li>
+        </Link>
       </ul>
     </div>
   );

@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Chats from './pages/Chats';
 import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
 import Sidebar from './components/shared/Sidebar';
@@ -25,6 +26,7 @@ const App = () => {
         {isAuthenticated && (
           <Route path='/uniformdetails' element={<UniformDetails />} />
         )}
+        {isAuthenticated && <Route path='/chats' element={<Chats />} />}
       </Routes>
     </BrowserRouter>
   );
