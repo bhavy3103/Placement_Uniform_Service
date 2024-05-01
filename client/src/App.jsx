@@ -9,6 +9,7 @@ import Navbar from './components/shared/Navbar';
 import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
+import TrackUniform from './pages/TrackUniform';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -24,7 +25,10 @@ const App = () => {
         {!isAuthenticated && <Route path='/sign-up' element={<SignUp />} />}
         {isAuthenticated && <Route path='/profile' element={<Profile />} />}
         {isAuthenticated && (
-          <Route path='/uniformdetails' element={<UniformDetails />} />
+          <Route path='/uniform-details' element={<UniformDetails />} />
+        )}
+        {isAuthenticated && (
+          <Route path='/track-uniform' element={<TrackUniform />} />
         )}
         {isAuthenticated && <Route path='/chats' element={<Chats />} />}
       </Routes>
