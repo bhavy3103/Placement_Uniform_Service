@@ -10,6 +10,7 @@ import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
 import TrackUniform from './pages/TrackUniform';
+import StudentList from './pages/StudentList';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -31,6 +32,9 @@ const App = () => {
           <Route path='/track-uniform' element={<TrackUniform />} />
         )}
         {isAuthenticated && <Route path='/chats' element={<Chats />} />}
+        {isAuthenticated && (
+          <Route path='/studentlist' element={<StudentList />} />
+        )}
       </Routes>
     </BrowserRouter>
   );
