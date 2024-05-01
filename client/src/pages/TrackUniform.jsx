@@ -1,6 +1,5 @@
-// import React from 'react'
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from '../components/shared/Layout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,11 +7,23 @@ import axios from '../../api/AxiosUrl';
 
 const TrackUniform = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const [queryType, setQueryType] = useState();
-  const [queryDescription, setQueryDescription] = useState();
 
-  console.log(currentUser);
+  const [queryType, setQueryType] = useState(() => {
+    // Retrieve the saved queryType from local storage or default to 'No Issue Found'
+    return localStorage.getItem('queryType') || 'No Issue Found';
+  });
+  const [queryDescription, setQueryDescription] = useState(() => {
+    return localStorage.getItem('queryDescription') || "No Description";
+  });
+  // console.log(queryDescription);
 
+  useEffect(() => {
+    localStorage.setItem('queryType', queryType);
+  }, [queryType]);
+
+  useEffect(() => {
+    localStorage.setItem('queryDescription', queryDescription);
+  }, [queryDescription]);
 
   const handleQueryTypeChange = (event) => {
     const selectedType = event.target.value;
@@ -39,7 +50,7 @@ const TrackUniform = () => {
         };
       }
 
-      console.log(data);
+      // console.log(data);
 
       // Make the POST request
       const response = await axios.patch('/api/uniform/updateIssue', data, {
@@ -47,8 +58,6 @@ const TrackUniform = () => {
           'Content-Type': 'application/json',
         },
       });
-
-      console.log(response);
 
       if (response.status === 200) {
         // Handle success
@@ -184,7 +193,7 @@ const TrackUniform = () => {
               <label htmlFor='query' className='block mb-2 text-sm font-medium text-gray-900'>
                 Is Any Query regarding uniform?
               </label>
-              <select id='query' className='block w-full py-2 px-3 border  border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500' onChange={handleQueryTypeChange}>
+              <select id='query' defaultValue={queryType} className='block w-full py-2 px-3 border  border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500' onChange={handleQueryTypeChange}>
                 <option value="No Issue Found">No Issue Found</option>
                 <option value='unfit'>Size Unfit</option>
                 <option value='missing'>Missing</option>
@@ -195,8 +204,8 @@ const TrackUniform = () => {
               <div className="mt-3 flex flex-row justify-center items-center gap-6">
                 {queryType === 'other' && (
                   <div>
-                    <label htmlFor="queryDescription" className="block mb-2 text-sm font-medium text-gray-900">Please specify:</label>
-                    <textarea id="queryDescription" className="block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="3" placeholder="Describe your issue..." onChange={handleQueryDescriptionChange} ></textarea>
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Please specify:</label>
+                    <textarea id="queryDescription" defaultValue={queryDescription} className="block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="3" placeholder="Describe your issue..." onChange={handleQueryDescriptionChange} ></textarea>
                   </div>
                 )}
                 {/* Submit Button */}
