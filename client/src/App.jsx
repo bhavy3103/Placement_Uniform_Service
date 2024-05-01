@@ -6,7 +6,6 @@ import SignUp from './pages/SignUp';
 import Chats from './pages/Chats';
 import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
-import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
 import TrackUniform from './pages/TrackUniform';
