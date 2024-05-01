@@ -45,7 +45,7 @@ export const Navbar = () => {
       {isAuthenticated && <Button onClick={signoutHandler}>Sign out</Button>}
       {!isAuthenticated && (
         <Link to='/sign-in'>
-          <Button variant='link' className='text-lg p-0'>
+          <Button>
             Sign in
           </Button>
         </Link>
