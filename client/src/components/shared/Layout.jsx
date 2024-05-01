@@ -2,14 +2,11 @@ import Sidebar from './Sidebar';
 
 export const Layout = ({ children }) => {
   return (
-    <div className='flex '>
-      {/* Left side - Header */}
-      <div className='w-1/5 m-3'>
-        <Sidebar />
+    <div className='flex h-[91vh]'>
+      <Sidebar />
+      <div className='flex-1 overflow-y-auto m-3 border rounded-lg shadow-lg bg-white p-4'>
+        {children}
       </div>
-
-      {/* Right side - Main content */}
-      <div className='w-4/5 flex flex-col '>{children}</div>
     </div>
   );
 };
