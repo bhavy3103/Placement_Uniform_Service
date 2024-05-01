@@ -5,6 +5,7 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import uniformRoutes from "./routes/uniformRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import cors from "cors";
 import path from 'path';
 
@@ -17,10 +18,10 @@ app.use(express.json());
 app.use(cors());
 
 
-
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/uniform", uniformRoutes);
+app.use("/api/chats", messageRoutes);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
