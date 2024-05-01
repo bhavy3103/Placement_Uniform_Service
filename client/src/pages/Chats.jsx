@@ -1,67 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/shared/Layout';
+import AxiosUrl from '../../api/AxiosUrl';
+import Message from '@/components/shared/Message';
 
 const Chats = () => {
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+  const [allMessages, setAllMessages] = useState([]);
 
-    const handleMessageChange = (e) => {
-        setMessage(e.target.value);
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (message.trim() !== '') {
+      try {
+        const res = await AxiosUrl.post('/api/chats/postMessage', {
+          message: message,
+          timestamp: new Date(),
+        });
+        // console.log('res', res.data);
+        setMessage('');
+        setAllMessages((prev) => [...prev, message]);
+      } catch (error) {
+        console.error('Error in postMessage:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await AxiosUrl.get('/api/chats/getAllMessages');
+        // console.log('res', res.data);
+        setAllMessages(res.data.data);
+      } catch (error) {
+        console.error('Error in getAllMessages:', error);
+      }
     };
+    fetchMessages();
+  }, [message]); // bad practice
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (message.trim() !== '') {
-            setMessages([...messages, message]);
-            setMessage('');
-        }
-    };
-
-    useEffect(() => {
-        const storedMessages = localStorage.getItem('chatMessages');
-        if (storedMessages) {
-            setMessages(JSON.parse(storedMessages));
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('chatMessages', JSON.stringify(messages));
-    }, [messages]);
-
-    return (
-        <Layout>
-            <p className='text-5xl mt-5'>Welcome To Chats</p>
-
-            {messages.map((msg, index) => (
-                <div key={index} className="bg-gray-100 p-4 rounded-lg mb-2 mt-2">
-                    <p className="text-gray-800">{msg}</p>
-                </div>
-            ))}
-
-            <div className="min-h-screen flex items-end justify-center">
-                <div className="w-full">
-                    <div className="bg-white p-8 rounded-lg w-full flex items-center ">
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="1"
-                            className="flex-grow bg-transparent focus:outline-none resize-none mr-2 w-full"
-                            placeholder="Type your message here"
-                            value={message}
-                            onChange={handleMessageChange}
-                        ></textarea>
-                        <button
-                            type="submit"
-                            className="bg-gray-600 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2"
-                            onClick={handleSubmit}
-                        >
-                            Send
-                        </button>
-                    </div>
-                </div>
+  return (
+    <Layout>
+      <div className='h-full flex overflow-hidden flex-col justify-between relative'>
+        <div className='overflow-auto'>
+          {allMessages.length === 0 && (
+            <div className='text-gray-800 text-center overflow-auto px-4 py-3 rounded-lg mt-2'>
+              No messages yet.
             </div>
-        </Layout>
-    );
+          )}
+          {allMessages?.map((item, index) => (
+            <Message
+              key={index}
+              message={item.message}
+              timestamp={item.timestamp}
+            />
+          ))}
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className='sticky bottom-0 w-full flex items-center justify-between gap-4 mt-3'
+        >
+          <textarea
+            id='message'
+            name='message'
+            rows='1'
+            className='flex-grow bg-gray-200 text-gray-800 focus:outline-none resize-none w-full rounded-md text-md px-4 py-3'
+            placeholder='Type your message here'
+            value={message}
+            onChange={handleMessageChange}
+          ></textarea>
+          <button
+            type='submit'
+            className='bg-gray-700 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2'
+          >
+            Send
+          </button>
+        </form>
+      </div>
+    </Layout>
+  );
 };
 
 export default Chats;

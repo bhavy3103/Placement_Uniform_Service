@@ -6,7 +6,6 @@ import SignUp from './pages/SignUp';
 import Chats from './pages/Chats';
 import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
-import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
 import TrackUniform from './pages/TrackUniform';
@@ -18,7 +17,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Sidebar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />

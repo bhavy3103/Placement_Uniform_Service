@@ -1,9 +1,13 @@
 import express from 'express';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
-import { getAllMessages } from '../controllers/messageController.js';
+import {
+  getAllMessages,
+  postMessage,
+} from '../controllers/messageController.js';
 
 const router = express.Router();
 
-router.post('/getAllMessages', authMiddleware, getAllMessages);
+router.get('/getAllMessages', authMiddleware, getAllMessages);
+router.post('/postMessage', authMiddleware, postMessage);
 
 export default router;
