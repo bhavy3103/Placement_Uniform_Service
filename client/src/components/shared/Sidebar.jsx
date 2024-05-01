@@ -26,6 +26,16 @@ export const Sidebar = () => {
             Chats
           </li>
         </Link>
+        <Link to='/uniform-details'>
+          <li className='text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg'>
+            Uniforms
+          </li>
+        </Link>
+        <Link to='/track-uniform'>
+          <li className='text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg'>
+            Track My Uniform
+          </li>
+        </Link>
       </ul>
     </div>
   );
