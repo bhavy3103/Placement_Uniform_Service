@@ -36,7 +36,7 @@ const SignIn = () => {
       }
       dispatch(signInSuccess(res.data.message));
       toast.success("Sign in Successfully");
-      navigate('/');
+      navigate('/profile');
       window.localStorage.setItem("token", res.data.token);
     } catch (error) {
       const Credential = 'Wrong Credential';

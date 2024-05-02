@@ -221,7 +221,6 @@ const TrackUniform = () => {
                     </label>
                     <textarea
                       id='queryDescription'
-                      defaultValue={queryDescription}
                       className='block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
                       rows='3'
                       placeholder='Describe your issue...'

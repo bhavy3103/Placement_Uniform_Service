@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   signOutUserStart,
@@ -11,6 +11,7 @@ import { Button } from '../ui/button';
 export const Navbar = () => {
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signoutHandler = async (e) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ export const Navbar = () => {
         return;
       }
 
+      navigate('/sign-in');
       dispatch(signOutUserSuccess());
       window.location.reload();
     } catch (error) {
@@ -56,22 +58,14 @@ export const Navbar = () => {
         )}
         {isAuthenticated && (
           <Link
-            to='/sign-in'
             onClick={signoutHandler}
             className='text-lg bg-transparent rounded-md ring-1 border-none ring-rose-500 font-semibold text-rose-500 px-3 py-1.5 transition-all duration-200 hover:bg-rose-500 hover:text-white'
           >
             Sign out
           </Link>
         )}
-        {!isAuthenticated && (
-          <Link to='/sign-in'>
-            <Button className='text-lg bg-transparent ring-1 border-none ring-sky-500 font-semibold text-sky-500 px-3 py-1.5 transition-all duration-200 hover:bg-sky-500 hover:text-white'>
-              Sign in
-            </Button>
-          </Link>
-        )}
       </div>
-    </div>
+     </div>
   );
 };
 
