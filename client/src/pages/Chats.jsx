@@ -41,10 +41,16 @@ const Chats = () => {
     fetchMessages();
   }, [message]); // bad practice
 
+  // scroll to bottom on new message
+  useEffect(() => {
+    const elem = document.getElementById('main-chat');
+    elem.scrollTo(0, elem.scrollHeight);
+  }, [allMessages]);
+
   return (
     <Layout>
       <div className='h-full flex overflow-hidden flex-col justify-between relative'>
-        <div className='overflow-auto'>
+        <div className='overflow-auto' id='main-chat'>
           {allMessages.length === 0 && (
             <div className='text-gray-800 text-center overflow-auto px-4 py-3 rounded-lg mt-2'>
               No messages yet.
