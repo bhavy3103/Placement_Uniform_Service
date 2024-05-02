@@ -61,7 +61,7 @@ const TrackUniform = () => {
 
       if (response.status === 200) {
         // Handle success
-        toast.success('Query added successfully');
+        toast.success('Query Submitted successfully');
       } else {
         // Handle failure
         throw new Error(response.data.message);

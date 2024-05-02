@@ -10,9 +10,12 @@ import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
 import TrackUniform from './pages/TrackUniform';
 import StudentList from './pages/StudentList';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
+
 
   return (
     <BrowserRouter>
@@ -34,6 +37,7 @@ const App = () => {
           <Route path='/studentlist' element={<StudentList />} />
         )}
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };
