@@ -1,4 +1,4 @@
-import transporter from '../config/mailConfig';
+import transporter from '../config/mailConfig.js';
 
 export async function mailer(mailList, data) {
   const htmlContent = `

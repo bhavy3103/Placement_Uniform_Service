@@ -1,4 +1,4 @@
-import { mailer } from './helperfile';
+import { mailer } from './helperfile.js';
 
 export const sendMail = async (req, res) => {
   try {
