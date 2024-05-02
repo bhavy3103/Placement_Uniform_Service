@@ -28,6 +28,17 @@ const Chats = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.ctrlKey) {
+      handleSubmit(e);
+    } else if (e.key === 'Enter' && e.ctrlKey) {
+      e.preventDefault();
+      setMessage((prevMessage) => prevMessage + '\n');
+      const elem = document.getElementById('textarea-message');
+      elem.scrollTo(0, elem.scrollHeight);
+    }
+  };
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -70,13 +81,14 @@ const Chats = () => {
           className='sticky bottom-0 w-full flex items-center justify-between gap-4 mt-3'
         >
           <textarea
-            id='message'
+            id='textarea-message'
             name='message'
             rows='1'
             className='flex-grow bg-gray-200 text-gray-800 focus:outline-none resize-none w-full rounded-md text-md px-4 py-3'
             placeholder='Type your message here'
             value={message}
             onChange={handleMessageChange}
+            onKeyDown={handleKeyPress}
           ></textarea>
           <button
             type='submit'

@@ -12,11 +12,20 @@ const Message = ({ message, timestamp }) => {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const formattedDateTime = `${hours}.${formattedMinutes}${period}, ${day}/${month}/${year}`;
 
+  // Split message by newline characters and render each part separately
+  // eslint-disable-next-line react/prop-types
+  const messageParts = message?.split('\n');
+
   return (
     <div className='flex justify-between items-start bg-blue-600 text-white px-4 py-3 rounded-lg mt-2'>
-      <div>{message}</div>
+      <div>
+        {messageParts?.map((part, index) => (
+          // Render each part or an empty line if the part is empty
+          <div key={index}>{part || '\u00A0'}</div>
+        ))}
+      </div>
       <div className='text-sm min-w-40 text-gray-200 text-right'>
-        {formattedDateTime}
+        <p>{formattedDateTime}</p>
       </div>
     </div>
   );
