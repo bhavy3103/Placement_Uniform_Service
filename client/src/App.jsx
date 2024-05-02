@@ -6,10 +6,10 @@ import SignUp from './pages/SignUp';
 import Chats from './pages/Chats';
 import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
-import Sidebar from './components/shared/Sidebar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
 import TrackUniform from './pages/TrackUniform';
+import StudentList from './pages/StudentList';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -17,7 +17,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Sidebar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -31,6 +30,9 @@ const App = () => {
           <Route path='/track-uniform' element={<TrackUniform />} />
         )}
         {isAuthenticated && <Route path='/chats' element={<Chats />} />}
+        {isAuthenticated && (
+          <Route path='/studentlist' element={<StudentList />} />
+        )}
       </Routes>
     </BrowserRouter>
   );

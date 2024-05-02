@@ -34,12 +34,15 @@ export const Navbar = () => {
   };
 
   return (
-    <div className='flex justify-end items-center mt-2 ml-auto w-4/5 px-6'>
-      {isAuthenticated && (
-        <Link to='/profile'>
-          <button className='border border-blue-500 hover:border-blue-700 bg-gray-800 text-white p-2 m-2 rounded-full hover:underline'>
-            {currentUser?.fname[0] + currentUser?.lname[0]}
-          </button>
+    <div className='flex justify-between gap-3 items-center sticky top-0 bg-gray-800 w-full px-10 h-16 z-30 shadow-xl'>
+      <div className='flex justify-center items-center'>
+        <Link Link to='/'>
+          <h1 className='font-bold text-3xl'>
+            <span className='bg-gradient-to-r from-slate-400 to-slate-200 bg-clip-text text-transparent'>
+              Placement
+            </span>
+            <span className='text-slate-100'>Portal</span>
+          </h1>
         </Link>
       )}
       {isAuthenticated && <Button onClick={signoutHandler}>Sign out</Button>}
@@ -48,8 +51,15 @@ export const Navbar = () => {
           <Button>
             Sign in
           </Button>
-        </Link>
-      )}
+        )}
+        {!isAuthenticated && (
+          <Link to='/sign-in'>
+            <Button className='text-lg bg-transparent ring-1 border-none ring-sky-500 font-semibold text-sky-500 px-3 py-1.5 transition-all duration-200 hover:bg-sky-500 hover:text-white'>
+              Sign in
+            </Button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 };
