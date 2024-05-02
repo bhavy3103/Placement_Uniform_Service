@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import uniformRoutes from "./routes/uniformRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import mailRoutes from "./routes/mailRoutes.js";
 import cors from "cors";
 import path from 'path';
 
@@ -22,6 +23,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/uniform", uniformRoutes);
 app.use("/api/chats", messageRoutes);
+app.use("/api/mail", mailRoutes);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
