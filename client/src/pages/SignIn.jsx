@@ -10,6 +10,8 @@ import {
   signInFailure,
 } from '../redux/user/userSlice.js';
 import Loader from '@/components/style/Loader';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const SignIn = () => {
   const [enrollment, setEnrollment] = useState();
@@ -33,8 +35,9 @@ const SignIn = () => {
         return;
       }
       dispatch(signInSuccess(res.data.message));
+      toast.success("Sign in Successfully");
       navigate('/');
-      window.localStorage.setItem("token",res.data.token);
+      window.localStorage.setItem("token", res.data.token);
     } catch (error) {
       const Credential = 'Wrong Credential';
       dispatch(signInFailure(Credential));
@@ -51,7 +54,7 @@ const SignIn = () => {
           <form className='flex flex-col gap-4' onSubmit={submitHandler}>
             <input
               type='number'
-              placeholder='Enrollment'
+              placeholder='Username'
               className=' text-lg border rounded-xl p-3 hover:shadow-md'
               id='enrollment'
               onChange={(e) => {
