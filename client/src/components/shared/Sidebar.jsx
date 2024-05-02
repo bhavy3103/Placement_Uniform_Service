@@ -24,24 +24,17 @@ export const Sidebar = () => {
             Home
           </li>
         </Link>
-        <Link to='/about'>
-          <li
-            className={`text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg ${
-              location.pathname === '/about' ? 'bg-gray-400 rounded-lg' : ''
-            }`}
-          >
-            About
-          </li>
-        </Link>
-        <Link to='/chats'>
-          <li
-            className={`text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg ${
-              location.pathname === '/chats' ? 'bg-gray-400 rounded-lg' : ''
-            }`}
-          >
-            Chats
-          </li>
-        </Link>
+        {isAuthenticated && (
+          <Link to='/chats'>
+            <li
+              className={`text-slate-700 text-xl ml-4 mr-3 p-2 hover:border border-gray-900 hover:bg-gray-300 hover:rounded-lg ${
+                location.pathname === '/chats' ? 'bg-gray-400 rounded-lg' : ''
+              }`}
+            >
+              Chats
+            </li>
+          </Link>
+        )}
         {role === 'admin' && (
           <Link to='/uniform-details'>
             <li

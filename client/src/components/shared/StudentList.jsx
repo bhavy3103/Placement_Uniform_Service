@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 // eslint-disable-next-line react/prop-types
 const StudentList = ({ selectedEnrollments, setSelectedEnrollments }) => {
-//   const [selectedEnrollments, setSelectedEnrollments] = useState([])
+  //   const [selectedEnrollments, setSelectedEnrollments] = useState([])
   const [selectAll, setSelectAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 

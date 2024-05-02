@@ -55,12 +55,13 @@ export const Navbar = () => {
           </Link>
         )}
         {isAuthenticated && (
-          <Button
+          <Link
+            to='/sign-in'
             onClick={signoutHandler}
-            className='text-lg bg-transparent ring-1 border-none ring-rose-500 font-semibold text-rose-500 px-3 py-1.5 transition-all duration-200 hover:bg-rose-500 hover:text-white'
+            className='text-lg bg-transparent rounded-md ring-1 border-none ring-rose-500 font-semibold text-rose-500 px-3 py-1.5 transition-all duration-200 hover:bg-rose-500 hover:text-white'
           >
             Sign out
-          </Button>
+          </Link>
         )}
         {!isAuthenticated && (
           <Link to='/sign-in'>

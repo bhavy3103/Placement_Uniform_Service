@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Chats from './pages/Chats';
@@ -21,7 +20,6 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
         {!isAuthenticated && <Route path='/sign-in' element={<SignIn />} />}
         {!isAuthenticated && <Route path='/sign-up' element={<SignUp />} />}
         {isAuthenticated && <Route path='/profile' element={<Profile />} />}
