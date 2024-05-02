@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const Message = ({ message, timestamp }) => {
+const Message = ({ message, timestamp, selfMessage, senderId }) => {
   const dateTime = new Date(timestamp);
 
   // Get hours, minutes, day, month, and year
@@ -17,15 +17,26 @@ const Message = ({ message, timestamp }) => {
   const messageParts = message?.split('\n');
 
   return (
-    <div className='flex justify-between items-start bg-blue-600 text-white px-4 py-3 rounded-lg mt-2'>
-      <div>
-        {messageParts?.map((part, index) => (
-          // Render each part or an empty line if the part is empty
-          <div key={index}>{part || '\u00A0'}</div>
-        ))}
-      </div>
-      <div className='text-sm min-w-40 text-gray-200 text-right'>
-        <p>{formattedDateTime}</p>
+    <div
+      className={`flex flex-col ${selfMessage ? 'items-end' : 'items-start'}`}
+    >
+      <div
+        className={`w-[70%] flex justify-between items-start border border-gray-200 ${
+          selfMessage ? 'bg-green-200' : 'bg-slate-200'
+        } text-gray-900 px-4 py-3 rounded-lg mt-2`}
+      >
+        <div className='flex flex-col justify-start items-start'>
+          <div className='text-indigo-800 top-0 font-semibold text-lg'>{senderId}</div>
+          <div className=''>
+            {messageParts?.map((part, index) => (
+              // Render each part or an empty line if the part is empty
+              <div key={index}>{part || '\u00A0'}</div>
+            ))}
+          </div>
+        </div>
+        <div className='text-sm min-w-40 text-gray-400 text-right'>
+          <p>{formattedDateTime}</p>
+        </div>
       </div>
     </div>
   );

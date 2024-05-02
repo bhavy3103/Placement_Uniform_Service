@@ -6,7 +6,6 @@ const Profile = () => {
 
   // console.log(currentUser);
 
-
   return (
     <Layout>
       <div className='flex justify-center w-full '>
@@ -162,8 +161,7 @@ const Profile = () => {
           />
         </div>
       </div>
-
-    </Layout >
+    </Layout>
   );
 };
 

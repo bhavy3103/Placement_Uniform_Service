@@ -16,8 +16,10 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 import StudentList from '../components/shared/StudentList';
+import { useSelector } from 'react-redux';
 
 const Chats = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
   const [selectedEnrollments, setSelectedEnrollments] = useState([]);
@@ -32,7 +34,6 @@ const Chats = () => {
       try {
         const res = await AxiosUrl.post('/api/chats/postMessage', {
           message: message,
-          timestamp: new Date(),
           selectedEnrollments: selectedEnrollments,
         });
         // console.log('res', res);
@@ -99,7 +100,10 @@ const Chats = () => {
         </DialogContent>
 
         <div className='h-full flex overflow-hidden flex-col justify-between relative'>
-          <div className='overflow-auto' id='main-chat'>
+          <div
+            className='overflow-auto'
+            id='main-chat'
+          >
             {allMessages.length === 0 && (
               <div className='text-gray-800 text-center overflow-auto px-4 py-3 rounded-lg mt-2'>
                 No messages yet.
@@ -110,6 +114,8 @@ const Chats = () => {
                 key={index}
                 message={item.message}
                 timestamp={item.timestamp}
+                selfMessage={item.senderId === currentUser.email ? true : false} // false=right, true=left
+                senderId={item.senderId}
               />
             ))}
           </div>

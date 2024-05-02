@@ -1,10 +1,10 @@
-import { User } from "../models/userModel.js";
+import { User } from '../models/userModel.js';
 
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
     users.forEach((user) => {
-      if (user.role === "admin") {
+      if (user.role === 'admin') {
         users.splice(users.indexOf(user), 1);
       }
     });
@@ -28,13 +28,13 @@ export const getCurrentUser = async (req, res) => {
     if (!user) {
       res.send({
         success: true,
-        message: "Error occurred in fetching user.",
+        message: 'Error occurred in fetching user.',
       });
     }
     const { password: pass, ...rest } = user._doc;
     res.send({
       success: true,
-      message: "User fetched Successfully",
+      message: 'User fetched Successfully',
       user: rest,
     });
   } catch (error) {
