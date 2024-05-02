@@ -15,7 +15,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/ui/dialog';
-import StudentList from './StudentList';
+import StudentList from '../components/shared/StudentList';
 
 const Chats = () => {
   const [message, setMessage] = useState('');

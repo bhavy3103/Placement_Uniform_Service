@@ -8,14 +8,13 @@ import Profile from './pages/Profile';
 import Navbar from './components/shared/Navbar';
 import { useSelector } from 'react-redux';
 import UniformDetails from './pages/UniformDetails';
-import TrackUniform from './pages/TrackUniform';
-import StudentList from './pages/StudentList';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NotFound from './pages/NotFound';
+import TrackUniform from './pages/TrackUniform';
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
-
 
   return (
     <BrowserRouter>
@@ -33,9 +32,7 @@ const App = () => {
           <Route path='/track-uniform' element={<TrackUniform />} />
         )}
         {isAuthenticated && <Route path='/chats' element={<Chats />} />}
-        {isAuthenticated && (
-          <Route path='/studentlist' element={<StudentList />} />
-        )}
+        <Route path='/*' element={<NotFound />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>
