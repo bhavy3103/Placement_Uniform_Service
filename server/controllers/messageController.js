@@ -26,18 +26,33 @@ export const getAllMessages = async (req, res) => {
 
 export const postMessage = async (req, res) => {
   try {
+    console.log('first');
     const userId = req.body.userId;
-    const { message, timestamp } = req.body;
-    const user = await User.findById(userId);
+    const { message, timestamp, selectedEnrollments } = req.body;
+    const sender = await User.findById(userId);
+    const senderId = sender?.email;
 
-    if (!user) {
+    console.log(message, selectedEnrollments, senderId);
+
+    if (!sender) {
       return res
         .status(404)
         .json({ success: false, message: 'User not found' });
     }
 
-    user.chats.push({ message, timestamp });
-    user.save();
+    for (let i = 0; i < selectedEnrollments.length; i++) {
+      const receiver = await User.findOne({
+        enrollment: selectedEnrollments[i],
+      });
+      if (!receiver) {
+        return res.status(404).json({
+          success: false,
+          message: 'Receiver not found.',
+        });
+      }
+      receiver.chats.push({ message, senderId });
+      receiver.save();
+    }
 
     res.status(200).json({
       success: true,
