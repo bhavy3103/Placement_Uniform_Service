@@ -1,9 +1,14 @@
 import { mailer } from './helperfile.js';
-
+import { User } from '../models/userModel.js';
 export const sendMail = async (req, res) => {
   try {
-    const mailList = req.body.mailList;
-    const data = req.body.data;
+    const enrollList = req.body.selectedEnrollments;
+    const data = req.body.message;
+    let mailList = [];
+    enrollList.map(async (enroll) => {
+      const user = await User.findOne({ enrollment: enroll });
+      mailList.push(user.email);
+    });
     await mailer(mailList, data);
 
     res.status(200).json({

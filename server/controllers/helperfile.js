@@ -5,7 +5,7 @@ export async function mailer(mailList, data) {
   <html>
   <body>
     <h3>Notification</h3>   
-    <p>You got following notification : ${data.message}.</p>
+    <p>You got following notification : ${data}.</p>
     <br><br><br><br>
   </body>
   </html>
