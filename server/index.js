@@ -16,6 +16,7 @@ const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'client', 'dist', 'index.html')));
 app.use(cors());
 
 
@@ -24,6 +25,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/uniform", uniformRoutes);
 app.use("/api/chats", messageRoutes);
 app.use("/api/mail", mailRoutes);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('build', 'index.html'));
+});
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
