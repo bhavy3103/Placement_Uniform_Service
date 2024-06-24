@@ -23,7 +23,7 @@ export const updateStudentUniform = async (req, res) => {
 export const updateUniformIssue = async (req, res) => {
   try {
     const userId = req.body.userId;
-    const { isIssue } = req.body;
+    const { isIssue, issueDescription } = req.body;
     console.log(isIssue);
     const user = await User.findById(userId);
 
@@ -37,6 +37,7 @@ export const updateUniformIssue = async (req, res) => {
       user.uniform.isIssue = isIssue;
     } else {
       user.uniform.isIssue = isIssue;
+      user.uniform.issueDescription = issueDescription;
       user.status = 'pending';
     }
     await user.save();

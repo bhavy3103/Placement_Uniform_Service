@@ -8,6 +8,8 @@ import axios from '../../api/AxiosUrl';
 const TrackUniform = () => {
   const { currentUser } = useSelector((state) => state.user);
 
+  console.log(currentUser.uniform.isIssue);
+
   const [queryType, setQueryType] = useState(() => {
     // Retrieve the saved queryType from local storage or default to 'No Issue Found'
     return localStorage.getItem('queryType') || 'No Issue Found';
@@ -17,13 +19,18 @@ const TrackUniform = () => {
   });
   // console.log(queryDescription);
 
-  useEffect(() => {
-    localStorage.setItem('queryType', queryType);
-  }, [queryType]);
+  // useEffect(() => {
+  //   const
 
-  useEffect(() => {
-    localStorage.setItem('queryDescription', queryDescription);
-  }, [queryDescription]);
+  // }, [queryType]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('queryType', queryType);
+  // }, [queryType]);
+
+  // useEffect(() => {
+  //   localStorage.setItem('queryDescription', queryDescription);
+  // }, [queryDescription]);
 
   const handleQueryTypeChange = (event) => {
     const selectedType = event.target.value;
@@ -92,13 +99,12 @@ const TrackUniform = () => {
               currentUser.uniform.firstInstallment ? 'Done' : 'Pending'
             }
             id='firstInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.firstInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.firstInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -115,13 +121,12 @@ const TrackUniform = () => {
               currentUser.uniform.secondInstallment ? 'Done' : 'Pending'
             }
             id='secondInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.secondInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.secondInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -138,13 +143,12 @@ const TrackUniform = () => {
               currentUser.uniform.isMeasureMentDone ? 'Done' : 'Pending'
             }
             id='isMeasureMentDone'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isMeasureMentDone === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isMeasureMentDone === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
+          // onChange={handleChange}
           />
         </div>
 
@@ -160,13 +164,12 @@ const TrackUniform = () => {
             placeholder='isArrived'
             defaultValue={currentUser.uniform.isArrived ? 'Done' : 'Pending'}
             id='isArrived'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isArrived === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isArrived === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
+          // onChange={handleChange}
           />
         </div>
         <div>
@@ -183,11 +186,10 @@ const TrackUniform = () => {
               currentUser.uniform.isDistributed ? 'Done' : 'Pending'
             }
             id='phone2'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isDistributed === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isDistributed === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
           />
         </div>
@@ -225,6 +227,7 @@ const TrackUniform = () => {
                       rows='3'
                       placeholder='Describe your issue...'
                       onChange={handleQueryDescriptionChange}
+                      value={queryDescription}
                     ></textarea>
                   </div>
                 )}
