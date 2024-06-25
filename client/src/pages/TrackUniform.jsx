@@ -169,7 +169,7 @@ const TrackUniform = () => {
             readOnly
           />
         </div>
-        {(<div>
+        {currentUser.uniform.isDistributed && (<div>
           <label
             htmlFor='queryType'
             className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
