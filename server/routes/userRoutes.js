@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, getCurrentUser } from '../controllers/userController.js';
+import { getUsers, getCurrentUser, updateUser } from '../controllers/userController.js';
 import {
   authMiddleware,
   authAdminMiddleware,
@@ -9,5 +9,7 @@ const router = express.Router();
 
 router.get('/users', authAdminMiddleware, getUsers);
 router.get('/', authMiddleware, getCurrentUser);
+router.patch('/updateUser', authMiddleware, updateUser);
+
 
 export default router;

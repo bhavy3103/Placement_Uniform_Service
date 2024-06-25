@@ -44,3 +44,27 @@ export const getCurrentUser = async (req, res) => {
     });
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const { userId, updateData } = req.body;
+    const user = await User.findByIdAndUpdate(userId, updateData, { new: true });
+    if (!user) {
+      return res.send({
+        success: false,
+        message: 'User not found',
+      });
+    }
+    const { password: pass, ...rest } = user._doc;
+    res.send({
+      success: true,
+      message: 'User updated successfully',
+      user: rest,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};

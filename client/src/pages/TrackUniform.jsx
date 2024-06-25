@@ -1,82 +1,70 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Layout } from '../components/shared/Layout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from '../../api/AxiosUrl';
+import { updateCurrentUser } from '@/redux/user/userSlice'; // Make sure the path is correct
 
 const TrackUniform = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
 
-  const [queryType, setQueryType] = useState(() => {
-    // Retrieve the saved queryType from local storage or default to 'No Issue Found'
-    return localStorage.getItem('queryType') || 'No Issue Found';
-  });
-  const [queryDescription, setQueryDescription] = useState(() => {
-    return localStorage.getItem('queryDescription') || 'No Description';
-  });
-  // console.log(queryDescription);
+  const [queryType, setQueryType] = useState('No Issue Found');
+  const [queryDescription, setQueryDescription] = useState('No Description');
 
   useEffect(() => {
-    localStorage.setItem('queryType', queryType);
-  }, [queryType]);
-
-  useEffect(() => {
-    localStorage.setItem('queryDescription', queryDescription);
-  }, [queryDescription]);
+    if (currentUser.uniform.isIssue !== 'No Issue Found') {
+      setQueryType(currentUser.uniform.isIssue);
+      setQueryDescription(currentUser.uniform.issueDescription);
+    }
+  }, [currentUser.uniform.isIssue, currentUser.uniform.issueDescription]);
 
   const handleQueryTypeChange = (event) => {
-    const selectedType = event.target.value;
-    setQueryType(selectedType);
+    setQueryType(event.target.value);
   };
 
   const handleQueryDescriptionChange = (event) => {
-    const description = event.target.value;
-    setQueryDescription(description);
+    setQueryDescription(event.target.value);
   };
+
+  const finalQueryDescription = queryType === 'Other' ? queryDescription : 'NA';
+
 
   const submitQuery = async () => {
     try {
-      // Define the data to be sent in the request body
-      let data = {};
-      if (queryType === 'other') {
-        // Include the description if queryType is 'other'
-        data = {
-          isIssue: queryDescription, // Send the description instead of 'other'
-        };
-      } else {
-        data = {
-          isIssue: queryType,
-        };
-      }
+      const data = {
+        userId: currentUser._id,
+        updateData: {
+          uniform: {
+            ...currentUser.uniform, // Spread the existing uniform object to retain previous values
+            isIssue: queryType,
+            issueDescription: finalQueryDescription,
+          },
+        },
+      };
 
-      // console.log(data);
-
-      // Make the POST request
       const response = await axios.patch('/api/uniform/updateIssue', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
-      if (response.status === 200) {
-        // Handle success
+      if (response.data.success) {
         toast.success('Query Submitted successfully');
+        dispatch(updateCurrentUser(response.data.user));
       } else {
-        // Handle failure
         throw new Error(response.data.message);
       }
     } catch (error) {
-      // Handle any errors that occurred during the request
       toast.error('Error updating uniform issue: ' + error.message);
-
       console.error('Error updating uniform issue:', error.message);
     }
   };
 
   return (
     <Layout>
-      <div className='m-2 p-2 text-lg font-semibold'>Unifrom Details</div>
+      <div className='m-2 p-2 text-lg font-semibold'>Uniform Details</div>
       <div className='flex flex-wrap gap-4 m-3'>
         <div>
           <label
@@ -92,13 +80,11 @@ const TrackUniform = () => {
               currentUser.uniform.firstInstallment ? 'Done' : 'Pending'
             }
             id='firstInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.firstInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.firstInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
           />
         </div>
         <div>
@@ -115,13 +101,11 @@ const TrackUniform = () => {
               currentUser.uniform.secondInstallment ? 'Done' : 'Pending'
             }
             id='secondInstallment'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.secondInstallment === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.secondInstallment === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
           />
         </div>
         <div>
@@ -137,17 +121,14 @@ const TrackUniform = () => {
             defaultValue={
               currentUser.uniform.isMeasureMentDone ? 'Done' : 'Pending'
             }
-            id='isMeasureMentDone'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isMeasureMentDone === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            id='isMeasurementDone'
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isMeasureMentDone === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
           />
         </div>
-
         <div>
           <label
             htmlFor='isArrived'
@@ -160,13 +141,11 @@ const TrackUniform = () => {
             placeholder='isArrived'
             defaultValue={currentUser.uniform.isArrived ? 'Done' : 'Pending'}
             id='isArrived'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isArrived === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isArrived === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
-            // onChange={handleChange}
           />
         </div>
         <div>
@@ -183,62 +162,59 @@ const TrackUniform = () => {
               currentUser.uniform.isDistributed ? 'Done' : 'Pending'
             }
             id='phone2'
-            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${
-              currentUser.uniform.isDistributed === true
-                ? 'text-green-500 border-green-600'
-                : 'text-gray-900'
-            }`}
+            className={`bg-gray-50 border-gray-300 text-sm rounded-lg border p-2.5 block dark:bg-gray-700 dark:border-gray-600 ${currentUser.uniform.isDistributed === true
+              ? 'text-green-500 border-green-600'
+              : 'text-gray-900'
+              }`}
             readOnly
           />
         </div>
-        <div className='flex items-center'>
-          {currentUser.uniform.isDistributed && (
-            <div className='flex flex-col justify-center'>
+        {currentUser.uniform.isDistributed && (<div>
+          <label
+            htmlFor='queryType'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Query Type
+          </label>
+          <select
+            id='queryType'
+            className='block w-full p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
+            value={queryType}
+            onChange={handleQueryTypeChange}
+          >
+            <option value='No Issue Found'>No Issue Found</option>
+            <option value='Size Mismatch'>Size Mismatch</option>
+            <option value='Torn or Damaged'>Torn/Damage</option>
+            <option value='Stains or Marks'>Stains/Marks</option>
+            <option value='Defective Item'>Defective Item</option>
+            <option value='Incomplete Set'>Incomplete Set</option>
+            <option value='Other'>Other</option>
+          </select>
+          {queryType === 'Other' && (
+            <div className='mt-2'>
               <label
-                htmlFor='query'
-                className='block mb-2 text-sm font-medium text-gray-900'
+                htmlFor='queryDescription'
+                className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
               >
-                Is Any Query regarding uniform?
+                Please specify:
               </label>
-              <select
-                id='query'
-                defaultValue={queryType}
-                className='block w-full py-2 px-3 border  border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
-                onChange={handleQueryTypeChange}
-              >
-                <option value='No Issue Found'>No Issue Found</option>
-                <option value='unfit'>Size Unfit</option>
-                <option value='missing'>Missing</option>
-                <option value='torned'>Torned</option>
-                <option value='other'>Other</option>
-              </select>
-              {/* Check if the selected query type is "Other" */}
-              <div className='mt-3 flex flex-row justify-center items-center gap-6'>
-                {queryType === 'other' && (
-                  <div>
-                    <label className='block mb-2 text-sm font-medium text-gray-900'>
-                      Please specify:
-                    </label>
-                    <textarea
-                      id='queryDescription'
-                      className='block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
-                      rows='3'
-                      placeholder='Describe your issue...'
-                      onChange={handleQueryDescriptionChange}
-                    ></textarea>
-                  </div>
-                )}
-                {/* Submit Button */}
-                <button
-                  onClick={submitQuery}
-                  className='mt-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'
-                >
-                  Submit
-                </button>
-              </div>
+              <textarea
+                id='queryDescription'
+                className='block w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
+                rows='3'
+                placeholder='Describe your issue...'
+                onChange={handleQueryDescriptionChange}
+                value={finalQueryDescription}
+              ></textarea>
             </div>
           )}
-        </div>
+          <button
+            onClick={submitQuery}
+            className='mt-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'
+          >
+            Submit
+          </button>
+        </div>)}
       </div>
     </Layout>
   );

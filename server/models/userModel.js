@@ -25,8 +25,13 @@ const uniformSchema = new mongoose.Schema(
     isIssue: {
       type: String,
       required: true,
-      default: 'No issue found',
+      default: 'No Issue Found',
     },
+    issueDescription: {
+      type: String,
+      required: true,
+      default: "NA"
+    }
   },
   { timestamps: true }
 );
