@@ -3,7 +3,7 @@ import { User } from '../models/userModel.js';
 export const getAllMessages = async (req, res) => {
   try {
     const userId = req.body.userId;
-    const user = await User.findById(userId);
+    const user = await User.findById(`667ac837b596ebae925631ca`);
 
     if (!user) {
       return res.status(404).json({
@@ -11,7 +11,7 @@ export const getAllMessages = async (req, res) => {
         message: 'User not found.',
       });
     }
-    
+
     res.status(200).json({
       success: true,
       data: user.chats,
