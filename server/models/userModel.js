@@ -24,12 +24,12 @@ const uniformSchema = new mongoose.Schema(
     },
     isIssue: {
       type: String,
-      // required: true,
-      default: 'NA',
+      required: true,
+      default: 'No Issue Found',
     },
     issueDescription: {
       type: String,
-      // required: true,
+      required: true,
       default: "NA"
     }
   },

@@ -96,7 +96,7 @@ const Table = (props) => {
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>Measurnment</th>
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>Arrived</th>
             <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>Distributed</th>
-            <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>Query</th>
+            <th className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>Issue</th>
           </tr>
         </thead>
         <tbody>
@@ -106,7 +106,7 @@ const Table = (props) => {
               <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>{val.enrollment}</td>
               <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>{val.fname}</td>
               {Object.keys(val.uniform)
-                .filter((key) => key !== 'id' && key !== 'createdAt' && key !== 'updatedAt' && key !== '_id' && key !== '__v' && key !== 'isIssue')
+                .filter((key) => key !== 'id' && key !== 'createdAt' && key !== 'updatedAt' && key !== '_id' && key !== '__v' && key !== 'isIssue' && key != 'issueDescription')
                 .map((key) => (
                   <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center' key={key}>
                     {!permission.write ? (

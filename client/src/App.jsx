@@ -18,9 +18,12 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Routes>
+        {!isAuthenticated && <Route path='/' element={<SignIn />} />}
         {!isAuthenticated && <Route path='/sign-in' element={<SignIn />} />}
         {!isAuthenticated && <Route path='/sign-up' element={<SignUp />} />}
         {isAuthenticated && <Route path='/profile' element={<Profile />} />}
+        {isAuthenticated && <Route path='/' element={<Profile />} />}
+
         {isAuthenticated && (
           <Route path='/uniform-details' element={<UniformDetails />} />
         )}
