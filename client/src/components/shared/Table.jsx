@@ -74,10 +74,13 @@ const Table = (props) => {
         {/* Filter dropdown */}
         <select className="mr-2 bg-blue-50 border border-blue-300 rounded-md px-2 py-1" onChange={(e) => setSelectedQuery(e.target.value)}>
           <option value="">Filter Query</option>
-          <option value="No Issue found">No Issue</option>
-          <option value="missing">Missing</option>
-          <option value="torned">Torned</option>
-          <option value="Other">Other</option>
+          <option value='No Issue Found'>No Issue Found</option>
+          <option value='Size Mismatch'>Size Mismatch</option>
+          <option value='Torn or Damaged'>Torn/Damage</option>
+          <option value='Stains or Marks'>Stains/Marks</option>
+          <option value='Defective Item'>Defective Item</option>
+          <option value='Incomplete Set'>Incomplete Set</option>
+          <option value='Other'>Other</option>
           <option value="">Clear Filter</option>
         </select>
         {/* Button to calculate sum */}
@@ -116,7 +119,9 @@ const Table = (props) => {
                     )}
                   </td>
                 ))}
-              <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>{val.uniform.isIssue}</td>
+              <td className='border-b border-blue-gray-100 bg-blue-gray-50 p-3 text-center'>
+                {val.uniform.isIssue !== "Other" ? val.uniform.isIssue : val.uniform.issueDescription}
+              </td>
             </tr>
           ))}
         </tbody>

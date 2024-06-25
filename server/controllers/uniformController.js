@@ -31,7 +31,9 @@ export const updateUniformIssue = async (req, res) => {
     }
 
     if (isIssue === 'No Issue Found') {
+      // console.log("Hello");
       user.status = 'completed';
+      user.uniform.isIssue = isIssue;
     } else {
       user.status = 'pending';
       user.uniform.isIssue = isIssue;

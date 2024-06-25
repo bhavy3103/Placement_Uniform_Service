@@ -16,6 +16,7 @@ const UniformDetails = () => {
   }
 
   const updateDataBackend = async () => {
+    window.location.reload();
     try {
       const res = await AxiosUrl.post('/api/uniform/updateUniform', updatedData);
     } catch (error) {

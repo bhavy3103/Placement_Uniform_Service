@@ -28,8 +28,9 @@ const TrackUniform = () => {
     setQueryDescription(event.target.value);
   };
 
-  const finalQueryDescription = queryType === 'Other' ? queryDescription : 'NA';
 
+
+  const finalQueryDescription = queryType === 'Other' ? queryDescription : 'NA';
 
   const submitQuery = async () => {
     try {
@@ -37,7 +38,7 @@ const TrackUniform = () => {
         userId: currentUser._id,
         updateData: {
           uniform: {
-            ...currentUser.uniform, // Spread the existing uniform object to retain previous values
+            // Spread the existing uniform object to retain previous values
             isIssue: queryType,
             issueDescription: finalQueryDescription,
           },
