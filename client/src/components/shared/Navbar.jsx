@@ -5,8 +5,9 @@ import {
   signOutUserSuccess,
   signOutUserFailure,
 } from '@/redux/user/userSlice';
-import axios from '../../../api/AxiosUrl';
-import { Button } from '../ui/button';
+// import axios from '../../../api/AxiosUrl';
+// import { Button } from '../ui/button';
+import AxiosUrl from '../../../api/AxiosUrl';
 
 export const Navbar = () => {
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
@@ -18,7 +19,7 @@ export const Navbar = () => {
     try {
       dispatch(signOutUserStart());
 
-      const response = await axios.get('/api/auth/signout');
+      const response = await AxiosUrl.get('/api/auth/signout');
       console.log(response.statusText);
 
       if (!response.statusText) {
@@ -65,7 +66,7 @@ export const Navbar = () => {
           </Link>
         )}
       </div>
-     </div>
+    </div>
   );
 };
 

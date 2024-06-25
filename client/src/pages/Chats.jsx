@@ -120,10 +120,11 @@ const Chats = () => {
             ))}
           </div>
 
-          <form
+          {currentUser.role === 'admin' && <form
             // onSubmit={handleSubmit}
             className='sticky bottom-0 w-full flex items-center justify-between gap-4 mt-3'
           >
+
             <textarea
               id='textarea-message'
               name='message'
@@ -141,7 +142,7 @@ const Chats = () => {
                 <ChevronRight size={24} />
               </Button>
             </DialogTrigger>
-          </form>
+          </form>}
         </div>
       </Dialog>
     </Layout>

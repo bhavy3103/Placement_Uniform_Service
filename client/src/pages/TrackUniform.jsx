@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { Layout } from '../components/shared/Layout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from '../../api/AxiosUrl';
+// import axios from '../../api/AxiosUrl';
 import { updateCurrentUser } from '@/redux/user/userSlice'; // Make sure the path is correct
+import AxiosUrl from '../../api/AxiosUrl';
 
 const TrackUniform = () => {
   const dispatch = useDispatch();
@@ -45,11 +46,12 @@ const TrackUniform = () => {
         },
       };
 
-      const response = await axios.patch('/api/uniform/updateIssue', data, {
+      const response = await AxiosUrl.patch('/api/uniform/updateIssue', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
+
 
       if (response.data.success) {
         toast.success('Query Submitted successfully');
