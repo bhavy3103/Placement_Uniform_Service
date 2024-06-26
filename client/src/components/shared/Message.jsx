@@ -21,9 +21,8 @@ const Message = ({ message, timestamp, selfMessage, senderId }) => {
       className={`flex flex-col ${selfMessage ? 'items-end' : 'items-start'}`}
     >
       <div
-        className={`w-[70%] flex justify-between items-start border border-gray-200 ${
-          selfMessage ? 'bg-green-200' : 'bg-slate-200'
-        } text-gray-900 px-4 py-3 rounded-lg mt-2`}
+        className={`w-[70%] flex justify-between items-start border border-gray-200 ${selfMessage ? 'bg-green-200' : 'bg-slate-200'
+          } text-gray-900 px-4 py-3 rounded-lg mt-2`}
       >
         <div className='flex flex-col justify-start items-start'>
           <div className='text-indigo-800 top-0 font-semibold text-lg'>{senderId}</div>

@@ -4,6 +4,8 @@ import AxiosUrl from '../../api/AxiosUrl';
 import Message from '@/components/shared/Message';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   Dialog,
@@ -23,6 +25,7 @@ const Chats = () => {
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState([]);
   const [selectedEnrollments, setSelectedEnrollments] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
@@ -42,8 +45,11 @@ const Chats = () => {
         });
         setMessage('');
         setAllMessages((prev) => [...prev, message]);
+        setDialogOpen(false);
+        toast.success('Message sent successfully');
       } catch (error) {
         console.error('Error in postMessage:', error);
+        toast.error('Failed to send message');
       }
     }
   };
@@ -63,7 +69,6 @@ const Chats = () => {
     const fetchMessages = async () => {
       try {
         const res = await AxiosUrl.get('/api/chats/getAllMessages');
-        // console.log('res', res.data);
         setAllMessages(res.data.data);
       } catch (error) {
         console.error('Error in getAllMessages:', error);
@@ -80,7 +85,8 @@ const Chats = () => {
 
   return (
     <Layout>
-      <Dialog>
+      <ToastContainer />
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className='flex flex-col justify-between sm:max-w-[80vw] w-[70rem] min-h-[80vh] max-h-[90vh] overflow-hidden'>
           <DialogHeader className=''>
             <DialogTitle>Select Students</DialogTitle>
@@ -121,10 +127,8 @@ const Chats = () => {
           </div>
 
           {currentUser.role === 'admin' && <form
-            // onSubmit={handleSubmit}
             className='sticky bottom-0 w-full flex items-center justify-between gap-4 mt-3'
           >
-
             <textarea
               id='textarea-message'
               name='message'
@@ -137,7 +141,7 @@ const Chats = () => {
             ></textarea>
 
             <DialogTrigger asChild>
-              <Button className='flex justify-between items-center gap-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2'>
+              <Button className='flex justify-between items-center gap-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-4 py-2' onClick={() => setDialogOpen(true)}>
                 <span>Send</span>
                 <ChevronRight size={24} />
               </Button>
