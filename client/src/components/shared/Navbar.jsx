@@ -42,9 +42,9 @@ export const Navbar = () => {
         <Link Link to='/'>
           <h1 className='font-bold text-3xl'>
             <span className='bg-gradient-to-r from-slate-400 to-slate-200 bg-clip-text text-transparent'>
-              Placement
+              Uniform
             </span>
-            <span className='text-slate-100'>Portal</span>
+            <span className='text-slate-100'>Service</span>
           </h1>
         </Link>
       </div>
